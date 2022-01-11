@@ -11,6 +11,10 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import javax.swing.text.DefaultCaret;
 import org.json.JSONObject;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.text.*;
 
 public class MainScreen extends javax.swing.JFrame {
 
@@ -41,7 +45,21 @@ public class MainScreen extends javax.swing.JFrame {
                 String nickname = data.getString("nickname");
                 String message = data.getString("message");
                 System.out.println(nickname + ' ' + message);
-                main_area_chat.append("\n\n[" + nickname + "]: " + message);
+//                main_area_chat.append("\n\n[" + nickname + "]: " + message);
+                
+                
+                try
+                {
+                    if (SessionData.nickname.equals(nickname)){
+                        doc.insertString(doc.getLength(), "\n\n[" + nickname + "]: " + message, right );
+                        doc.setParagraphAttributes(doc.getLength(), 1, right, false);
+                    }
+                    else{
+                        doc.insertString(doc.getLength(), "\n\n[" + nickname + "]: " + message, left );
+                        doc.setParagraphAttributes(doc.getLength(), 1, left, false);
+                    }
+                }
+                catch(Exception e) { System.out.println(e); }
             }
         });
         socket.addListenConnection("out_room_response", new SocketHandler() {
@@ -57,6 +75,8 @@ public class MainScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        main_panel_scrollbar = new javax.swing.JScrollPane();
+        main_chat_panel = new javax.swing.JTextPane();
         main_message_content = new javax.swing.JScrollPane();
         main_area_chat = new javax.swing.JTextArea();
         main_send_message_content = new javax.swing.JTextField();
@@ -72,6 +92,28 @@ public class MainScreen extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(null);
+
+        main_panel_scrollbar.setBackground(new java.awt.Color(255, 204, 204));
+        main_panel_scrollbar.setBorder(null);
+        main_panel_scrollbar.setOpaque(false);
+
+        main_chat_panel.setEditable(false);
+        main_chat_panel.setBackground(new java.awt.Color(253, 245, 241));
+        main_chat_panel.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
+        main_chat_panel.setForeground(new java.awt.Color(102, 102, 102));
+        main_panel_scrollbar.setViewportView(main_chat_panel);
+        doc = main_chat_panel.getStyledDocument();
+
+        left = new SimpleAttributeSet();
+        StyleConstants.setAlignment(left, StyleConstants.ALIGN_LEFT);
+        StyleConstants.setForeground(left, new java.awt.Color(104, 104, 104));
+
+        right = new SimpleAttributeSet();
+        StyleConstants.setAlignment(right, StyleConstants.ALIGN_RIGHT);
+        StyleConstants.setForeground(right, new java.awt.Color(248, 86, 86));
+
+        getContentPane().add(main_panel_scrollbar);
+        main_panel_scrollbar.setBounds(250, 90, 750, 480);
 
         main_message_content.setBackground(new java.awt.Color(255, 204, 204));
         main_message_content.setBorder(null);
@@ -228,15 +270,20 @@ public class MainScreen extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea main_area_chat;
+    private javax.swing.JTextPane main_chat_panel;
     private javax.swing.JLabel main_exit_button;
     private javax.swing.JScrollPane main_message_content;
     private javax.swing.JLabel main_nickname_1;
     private javax.swing.JLabel main_nickname_2;
     private javax.swing.JLabel main_panel;
+    private javax.swing.JScrollPane main_panel_scrollbar;
     private javax.swing.JLabel main_send_message_button;
     private javax.swing.JTextField main_send_message_content;
     private javax.swing.JLabel main_title;
     private javax.swing.JLabel main_title_nickname;
     private javax.swing.JLabel moving_window;
     // End of variables declaration//GEN-END:variables
+    StyledDocument doc;
+    SimpleAttributeSet left;
+    SimpleAttributeSet right;
 }
