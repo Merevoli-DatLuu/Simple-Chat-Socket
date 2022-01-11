@@ -60,7 +60,6 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Candara" size="24" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Merevoli"/>
         <Property name="alignmentX" type="float" value="0.6"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>

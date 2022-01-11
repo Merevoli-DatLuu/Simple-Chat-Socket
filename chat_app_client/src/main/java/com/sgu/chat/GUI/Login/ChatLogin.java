@@ -95,7 +95,6 @@ public class ChatLogin extends javax.swing.JFrame {
 
         login_nickname_textfield.setBackground(new java.awt.Color(217, 217, 217));
         login_nickname_textfield.setFont(new java.awt.Font("Candara", 0, 24)); // NOI18N
-        login_nickname_textfield.setText("Merevoli");
         login_nickname_textfield.setAlignmentX(0.6F);
         login_nickname_textfield.setBorder(null);
         login_nickname_textfield.addMouseListener(new java.awt.event.MouseAdapter() {
