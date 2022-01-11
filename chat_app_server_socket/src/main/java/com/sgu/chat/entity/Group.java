@@ -28,7 +28,7 @@ public class Group {
     }
     
     public int inGroup(String nickname){
-        if (nickname == user_1 || nickname == user_2){
+        if (nickname.equals(user_1) || nickname.equals(user_2)){
             return 1;
         }
         else{

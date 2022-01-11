@@ -46,7 +46,7 @@ public class DataSocket {
 	{
             "type": "send_message",
             "data": {
-                "nickname": 1101, #id người dùng
+                "nickname": 1101, # nickname người dùng
                 "message": "this is a message" # nội dung tin nhắn
             }
 	}

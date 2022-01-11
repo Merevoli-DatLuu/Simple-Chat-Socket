@@ -39,19 +39,20 @@ public class SocketConnection {
             System.out.println("===== Socket server has started =====");
             Logging.log(Logging.SOCKET_TYPE, "socket_start", "===== Socket server has started =====");
 
+            Thread thread_get_pairing = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    new WaitingPairingHandler().getPair();
+                }
+            });
+            thread_get_pairing.start();
+            
             while (true) {
                 Socket socket = server.accept();
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
                 Logging.log(Logging.SOCKET_TYPE, "user_access", "user " + socket + " accessed");
                 
-                Thread thread_get_pairing = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        new WaitingPairingHandler().getPair();
-                    }
-                });
-                thread_get_pairing.start();
                 
                 Thread thread = new Thread(new Runnable() {
                     @Override
